@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: troot
+#    url: jdbc:mysql://127.0.0.1:3306/test_dsiab_com?useUnicode=true&useSSL=false&characterEncoding=utf-8&autoReconnect=true
+#    username: test_dsiab_com
+#    password: Yhc3kSBcYfF7Jt5X
+mybatis:
+  check-config-location: true
+  mapper-locations: classpath*:mapper/*.xml
+server:
+  port: 8091
+  servlet:
+   context-path: /bootService
+shiro:
+  sessionManager:
+    sessionIdCookieEnabled: false
+    sessionIdUrlRewritingEnabled: false
+  unauthorizedUrl: /unauthorizedurl
+  web:
+    enabled: true
+  successUrl: /index
+  loginUrl: /login

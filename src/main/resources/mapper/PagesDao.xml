@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.springboot.dao.PagesDao">
+    <resultMap id="PagesDto" type="com.spring.springboot.dto.PagesDto"/>
+    <resultMap id="cateDto" type="com.spring.springboot.dto.CateDto"/>
+    <resultMap id="CommentDto" type="com.spring.springboot.dto.CommentsDto"/>
+    <parameterMap id="PagesDto" type="com.spring.springboot.dto.PagesDto"/>
+
+    <select id="getOne" parameterType="Int" resultMap="PagesDto">
+        select * from pages where id = #{id}
+    </select>
+
+    <select id="getDetail" parameterType="Int" resultMap="PagesDto">
+        select id,title,htmlContent,views,likes,cate,createDate from pages where id = #{id}
+    </select>
+
+    <update id="updateOne">
+        update pages set title=#{title},content=#{content},htmlContent=#{htmlContent},cate=#{cate},views=#{views},likes=#{likes} where id=#{id}
+    </update>
+
+    <delete id="delOne" parameterType="Int">
+        delete from pages where id=#{id}
+    </delete>
+
+    <!-- 使用alias自定义的parameterType-->
+    <insert id="insertOne">
+        insert into pages(title,content,htmlContent,cate,views,likes) values (#{title},#{content},#{htmlContent},#{cate},#{views},#{likes})
+    </insert>
+
+    <select id="getAll" resultMap="PagesDto">
+        select id,title,content,cate,createDate,views,likes,comments from pages order by createDate desc limit #{page}, #{pageSize}
+    </select>
+
+    <select id="getList" resultMap="PagesDto">
+        select id,title,content,cate,createDate,views,likes,comments from pages where cate=#{cate}  order by createDate desc limit #{page}, #{pageSize}
+    </select>
+    <select id="getRecomList" resultMap="PagesDto">
+        select * from pages order by views desc limit 5
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from pages where cate=#{cate}
+    </select>
+
+    <select id="getAllCount" resultType="java.lang.Integer">
+        select count(*) from pages
+    </select>
+
+    <select id="getCate" resultMap="cateDto">
+        select * from category
+    </select>
+
+    <insert id="insertCate">
+        insert into category(name) values (#{name})
+    </insert>
+
+    <update id="updateCate">
+        update category set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="delCate" parameterType="Int">
+        delete from category where id=#{id}
+    </delete>
+
+    <select id="search" resultMap="PagesDto">
+        select * from pages where content like "%"#{key}"%" limit 30
+--    也可以写成这样     select * from pages where content like "%${key}%"
+    </select>
+
+    <update id="updateViews">
+        update pages set views=views+1 where id=#{id}
+    </update>
+
+    <insert id="insertComment">
+        insert into comments(username,content,parentId) values (#{username},#{content},#{parentId})
+    </insert>
+
+    <select id="getComment" resultMap="CommentDto">
+        select * from comments where parentId=#{id} order by createDate desc
+    </select>
+
+    <delete id="delComment" parameterType="Int">
+        delete from comments where id=#{id}
+    </delete>
+
+    <select id="getLatestComments" resultMap="CommentDto">
+        select * from comments order by createDate desc limit 10
+    </select>
+
+    <update id="updateCommentNum">
+        update pages set comments=comments + 1 where id=#{parentId}
+    </update>
+</mapper>
