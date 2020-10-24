@@ -84,16 +84,17 @@ public class PagesController {
    * @param id
    * @return
    */
-  @GetMapping("/getDetail")
-  public ResponseMap getOne(@RequestParam int id) {
+  @GetMapping("/getDetail/{id}")
+//  public ResponseMap getOne(@RequestBody PagesDto pagesDtoParams) {
+  public ResponseMap getOne(@PathVariable("id") String id) {
     // 浏览量加1
-    PagesDto pagesDto  = pagesSerice.getDetail(id);
+    PagesDto pagesDto  = pagesSerice.getDetail(Integer.parseInt(id));
 
     pagesSerice.updateViews(pagesDto);
 
     Map<String, Object> resultMap = new HashMap<>();
 
-    resultMap.put("result", pagesSerice.getDetail(id));
+    resultMap.put("result", pagesSerice.getDetail(Integer.parseInt(id)));
 
     return new ResponseMap(0, "查询成功", resultMap);
   }
