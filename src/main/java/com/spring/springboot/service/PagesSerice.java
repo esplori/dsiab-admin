@@ -22,8 +22,8 @@ public class PagesSerice {
     return PagesDao.getList(pagesDto);
   }
 
-  public List<PagesDto> getRecomList(PagesDto pagesDto) {
-    return PagesDao.getRecomList(pagesDto);
+  public List<PagesDto> getRecomList() {
+    return PagesDao.getRecomList();
   }
 
   public List<PagesDto> getAll(PagesDto pagesDto) {

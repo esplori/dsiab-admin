@@ -15,7 +15,7 @@ public interface PagesDao {
 
   public List<PagesDto> getList(PagesDto pagesDto);
 
-  public List<PagesDto> getRecomList(PagesDto pagesDto);
+  public List<PagesDto> getRecomList();
 
   public List<PagesDto> getAll(PagesDto pagesDto);
 

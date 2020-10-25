@@ -56,8 +56,8 @@ public class PagesController {
    */
   @PostMapping("/getRecomList")
 //  @Cacheable(value = "list",key = "#pagesDto.id")
-  public ResponseMap getRecomList(@RequestBody PagesDto pagesDto) {
-    List<PagesDto> list = pagesSerice.getRecomList(pagesDto);
+  public ResponseMap getRecomList() {
+    List<PagesDto> list = pagesSerice.getRecomList();
     return new ResponseMap(0, "查询成功", list);
   }
 
@@ -315,7 +315,11 @@ public class PagesController {
     resultMap.put("result", pagesSerice.search(key));
     return new ResponseMap(0, "查询成功", resultMap);
   }
-
+  /**
+   * 添加评论
+   * @param commentsDto
+   * @return
+   */
   @PostMapping("/insertComment")
   public ResponseMap insertComment(@RequestBody CommentsDto commentsDto) {
     boolean insertRes = pagesSerice.insertComment(commentsDto);
@@ -326,14 +330,20 @@ public class PagesController {
       return new ResponseMap(1, "提交失败", insertRes);
     }
   }
-
+  /**
+   * 获取评论
+   */
   @GetMapping("/getComment")
   public ResponseMap getComment(@RequestParam int id) {
     Map<String, Object> resultMap = new HashMap<>();
     resultMap.put("result", pagesSerice.getComment(id));
     return new ResponseMap(0, "查询成功", resultMap);
   }
-
+  /**
+   * 删除评论
+   * @param commentsDto
+   * @return
+   */
   @PostMapping("/delComment")
   public ResponseMap delComment(@RequestBody CommentsDto commentsDto) {
     boolean res = pagesSerice.delComment(commentsDto.getId());
@@ -343,7 +353,7 @@ public class PagesController {
       return new ResponseMap(1, "提交失败", res);
     }
   }
-
+  
   @GetMapping("/getLatestComments")
   public ResponseMap getLatestComments() {
     Map<String, Object> resultMap = new HashMap<>();
