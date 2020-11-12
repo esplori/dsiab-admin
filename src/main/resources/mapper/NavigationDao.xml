@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.springboot.dao.NavigationDao">
+    <resultMap id="PagesDto" type="com.spring.springboot.dto.PagesDto"/>
+    <resultMap id="cateDto" type="com.spring.springboot.dto.CateDto"/>
+    <parameterMap id="PagesDto" type="com.spring.springboot.dto.PagesDto"/>
+
+    <select id="getOne" parameterType="Int" resultMap="PagesDto">
+        select * from pages where id = #{id}
+    </select>
+
+    <select id="getDetail" parameterType="Int" resultMap="PagesDto">
+        select id,title,content,cate from navigation_list where id = #{id}
+    </select>
+
+    <update id="updateOne">
+        update navigation_list set title=#{title},content=#{content},cate=#{cate} where id=#{id}
+    </update>
+
+    <delete id="delOne" parameterType="Int">
+        delete from navigation_list where id=#{id}
+    </delete>
+
+    <!-- 使用alias自定义的parameterType-->
+    <insert id="insertOne">
+        insert into navigation_list(title,content,cate) values (#{title},#{content},#{cate})
+    </insert>
+
+    <select id="getAll" resultMap="PagesDto">
+        select id,title,content,cate from navigation_list limit #{page}, #{pageSize}
+    </select>
+
+    <select id="getList" resultMap="PagesDto">
+        select id,title,content,cate from navigation_list where cate=#{cate}  limit #{page}, #{pageSize}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from navigation_list where cate=#{cate}
+    </select>
+
+    <select id="getAllCount" resultType="java.lang.Integer">
+        select count(*) from navigation_list
+    </select>
+
+    <select id="getCate" resultMap="cateDto">
+        select * from category
+    </select>
+
+    <insert id="insertCate">
+        insert into category(name) values (#{name})
+    </insert>
+
+    <update id="updateCate">
+        update category set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="delCate" parameterType="Int">
+        delete from category where id=#{id}
+    </delete>
+</mapper>
