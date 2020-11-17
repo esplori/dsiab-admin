@@ -27,11 +27,11 @@
     </insert>
 
     <select id="getAll" resultMap="PagesDto">
-        select id,title,content,cate from navigation_list limit #{page}, #{pageSize}
+        select id,title,content,cate from navigation_list
     </select>
 
     <select id="getList" resultMap="PagesDto">
-        select id,title,content,cate from navigation_list where cate=#{cate}  limit #{page}, #{pageSize}
+        select id,title,content,cate from navigation_list
     </select>
 
     <select id="getCount" resultType="java.lang.Integer">

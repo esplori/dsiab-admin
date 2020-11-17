@@ -23,18 +23,13 @@ public class NavigationController {
    * @return
    */
   @PostMapping("/getList")
-  public ResponseMap getList(@RequestBody PagesDto pagesDto) {
+  public ResponseMap getList() {
     Map<String, Object> resultMap = new HashMap<>();
     List<PagesDto> list = new ArrayList<>();
-    int count = 0;
-    if (pagesDto.getCate() > 0) {
-      count = navigationService.getCount(pagesDto);
-      list = navigationService.getList(pagesDto);
-    } else {
-      count = navigationService.getAllCount();
-      list = navigationService.getAll(pagesDto);
-    }
-    resultMap.put("total", count);
+    // count = navigationService.getAllCount();
+    list = navigationService.getAll();
+    System.out.print("list==:" + list);
+    // resultMap.put("total", count);
     resultMap.put("result", list);
     return new ResponseMap(0, "查询成功", resultMap);
   }

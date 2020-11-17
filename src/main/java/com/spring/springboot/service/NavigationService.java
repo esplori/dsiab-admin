@@ -26,12 +26,8 @@ public class NavigationService {
     return navigationDao.getRecomList();
   }
 
-  public List<PagesDto> getAll(PagesDto pagesDto) {
-    int page = pagesDto.getPage();
-    int pageSize = pagesDto.getPageSize();
-    page = (page - 1)*pageSize;
-    pagesDto.setPage(page);
-    return navigationDao.getAll(pagesDto);
+  public List<PagesDto> getAll() {
+    return navigationDao.getAll();
   }
 
   public PagesDto getOne(int  id) {

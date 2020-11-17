@@ -17,7 +17,7 @@ public interface NavigationDao {
 
   public List<PagesDto> getRecomList();
 
-  public List<PagesDto> getAll(PagesDto pagesDto);
+  public List<PagesDto> getAll();
 
   public PagesDto getOne(@Param("id") int id);
 
