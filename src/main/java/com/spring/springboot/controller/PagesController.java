@@ -256,12 +256,12 @@ public class PagesController {
    * @return
    */
   @PostMapping("/upload")
-  public String upload(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest req) {
+  public Map upload(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest req) {
     // 获取文件名
     // String fileName = uploadFile.getOriginalFilename();
-
+    Map map = new HashMap();
 //    String realPath = req.getSession().getServletContext().getRealPath("/uploadFile/");
-    String realPath = "/data/wwwroot/default/uploadFile";
+    String realPath = "/www/wwwroot/admin.dsiab.com/uploadFile";
     System.out.println("realPath == " + realPath);
 
     // String format = sdf.format(new Date());
@@ -275,13 +275,14 @@ public class PagesController {
 
     try {
       uploadFile.transferTo(new File(folder, newName));
-      String filePath = "/uploadFile/" + newName;
-
-      return filePath;
+      String filePath = "http://admin.dsiab.com/uploadFile/" + newName;
+      map.put("location", filePath);
+      return map;
     } catch (IOException e){
       e.printStackTrace();
     }
-    return "上传失败";
+    map.put("location", "");
+    return map;
   }
 
   /**
