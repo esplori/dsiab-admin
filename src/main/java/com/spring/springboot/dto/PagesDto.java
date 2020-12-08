@@ -12,6 +12,7 @@ public class PagesDto {
  private int likes;
  private int comments;
  private String htmlContent;
+ private String cateName;
 
   public int getPage() {
     return page;
@@ -99,6 +100,14 @@ public class PagesDto {
 
   public void setComments(int comments) {
     this.comments = comments;
+  }
+
+  public String getCateName() {
+    return cateName;
+  }
+
+  public void setCateName(String cateName) {
+    this.cateName = cateName;
   }
 
   @Override

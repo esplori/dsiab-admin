@@ -261,7 +261,7 @@ public class PagesController {
     // String fileName = uploadFile.getOriginalFilename();
     Map map = new HashMap();
 //    String realPath = req.getSession().getServletContext().getRealPath("/uploadFile/");
-    String realPath = "/www/wwwroot/admin.dsiab.com/uploadFile";
+    String realPath = "/www/wwwroot/file.dsiab.com/uploadFile";
     System.out.println("realPath == " + realPath);
 
     // String format = sdf.format(new Date());
@@ -275,7 +275,7 @@ public class PagesController {
 
     try {
       uploadFile.transferTo(new File(folder, newName));
-      String filePath = "http://admin.dsiab.com/uploadFile/" + newName;
+      String filePath = "http://file.dsiab.com/uploadFile/" + newName;
       map.put("location", filePath);
       return map;
     } catch (IOException e){

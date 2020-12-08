@@ -28,7 +28,7 @@
     </insert>
 
     <select id="getAll" resultMap="PagesDto">
-        select id,title,content,cate,createDate,views,likes,comments from pages order by createDate desc limit #{page}, #{pageSize}
+        select pages.id,pages.title,pages.content,category.name as cateName,pages.createDate,pages.views from pages left join category on pages.cate = category.id order by createDate desc limit #{page}, #{pageSize}
     </select>
 
     <select id="getList" resultMap="PagesDto">
