@@ -9,7 +9,7 @@
     </select>
 
     <update id="updateUserInfo">
-        update user set nickname=#{nickname},userdesc=#{userdesc},avatar=#{avatar} where username=#{username}
+        update user set nickname=#{nickname},userdesc=#{userdesc},avatar=#{avatar},sourceUrl=#{sourceUrl},sourceRealUrl=#{sourceRealUrl} where username=#{username}
     </update>
 
 </mapper>

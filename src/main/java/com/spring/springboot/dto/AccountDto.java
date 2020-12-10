@@ -15,6 +15,10 @@ public class AccountDto {
 
   private String avatar;
 
+  private String sourceUrl;
+
+  private String sourceRealUrl;
+
   public String getUsername() {
     return username;
   }
@@ -55,7 +59,6 @@ public class AccountDto {
     this.nickname = nickname;
   }
 
-
   public String getAvatar() {
     return avatar;
   }
@@ -72,6 +75,22 @@ public class AccountDto {
     this.userdesc = userdesc;
   }
 
+  public String getSourceUrl() {
+    return sourceUrl;
+  }
+
+  public void setSourceUrl(String sourceUrl) {
+    this.sourceUrl = sourceUrl;
+  }
+
+  public String getSourceRealUrl() {
+    return sourceRealUrl;
+  }
+
+  public void setSourceRealUrl(String sourceRealUrl) {
+    this.sourceRealUrl = sourceRealUrl;
+  }
+
   @Override
   public String toString() {
     return "AccountDto{" +
@@ -82,6 +101,8 @@ public class AccountDto {
             ", nickname='" + nickname + '\'' +
             ", userdesc='" + userdesc + '\'' +
             ", avatar='" + avatar + '\'' +
+            ", sourceUrl='" + sourceUrl + '\'' +
+            ", sourceRealUrl='" + sourceRealUrl + '\'' +
             '}';
   }
 }
