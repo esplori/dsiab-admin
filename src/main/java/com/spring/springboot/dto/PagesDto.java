@@ -13,6 +13,7 @@ public class PagesDto {
  private int comments;
  private String htmlContent;
  private String cateName;
+ private String keywords;
 
   public int getPage() {
     return page;
@@ -110,6 +111,14 @@ public class PagesDto {
     this.cateName = cateName;
   }
 
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
+
   @Override
   public String toString() {
     return "PagesDto{" +
@@ -124,6 +133,8 @@ public class PagesDto {
             ", likes=" + likes +
             ", comments=" + comments +
             ", htmlContent='" + htmlContent + '\'' +
+            ", cateName='" + cateName + '\'' +
+            ", keywords='" + keywords + '\'' +
             '}';
   }
 }

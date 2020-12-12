@@ -11,11 +11,11 @@
     </select>
 
     <select id="getDetail" parameterType="Int" resultMap="PagesDto">
-        select id,title,htmlContent,views,likes,cate,createDate from pages where id = #{id}
+        select id,title,htmlContent,views,likes,keywords,cate,createDate from pages where id = #{id}
     </select>
 
     <update id="updateOne">
-        update pages set title=#{title},content=#{content},htmlContent=#{htmlContent},cate=#{cate},views=#{views},likes=#{likes} where id=#{id}
+        update pages set title=#{title},content=#{content},htmlContent=#{htmlContent},cate=#{cate},views=#{views},likes=#{likes},keywords=#{keywords} where id=#{id}
     </update>
 
     <delete id="delOne" parameterType="Int">
@@ -24,11 +24,11 @@
 
     <!-- 使用alias自定义的parameterType-->
     <insert id="insertOne">
-        insert into pages(title,content,htmlContent,cate,views,likes) values (#{title},#{content},#{htmlContent},#{cate},#{views},#{likes})
+        insert into pages(title,content,htmlContent,cate,views,likes,keywords) values (#{title},#{content},#{htmlContent},#{cate},#{views},#{likes},#{keywords})
     </insert>
 
     <select id="getAll" resultMap="PagesDto">
-        select pages.id,pages.title,pages.content,category.name as cateName,pages.createDate,pages.views from pages left join category on pages.cate = category.id order by createDate desc limit #{page}, #{pageSize}
+        select pages.id,pages.title,pages.content,pages.keywords,category.name as cateName,pages.createDate,pages.views from pages left join category on pages.cate = category.id order by createDate desc limit #{page}, #{pageSize}
     </select>
 
     <select id="getList" resultMap="PagesDto">
