@@ -27,7 +27,7 @@
     </insert>
 
     <select id="getAll" resultMap="PagesDto">
-        select id,title,content,cate from navigation_list
+        select navigation_list.id,navigation_list.title,navigation_list.content,navigation_list.cate,category.name as cateName from navigation_list left join category on navigation_list.cate = category.id
     </select>
 
     <select id="getList" resultMap="PagesDto">
