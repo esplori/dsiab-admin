@@ -249,41 +249,7 @@ public class PagesController {
     }
     return new ResponseMap(0, "更新成功", files);
   }
-  /**
-   * 上传
-   *
-   * @param
-   * @return
-   */
-  @PostMapping("/upload")
-  public Map upload(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest req) {
-    // 获取文件名
-    // String fileName = uploadFile.getOriginalFilename();
-    Map map = new HashMap();
-//    String realPath = req.getSession().getServletContext().getRealPath("/uploadFile/");
-    String realPath = "/www/wwwroot/file.dsiab.com/uploadFile";
-    System.out.println("realPath == " + realPath);
 
-    // String format = sdf.format(new Date());
-    File folder = new File(realPath);
-    if (!folder.isDirectory()) {
-      folder.mkdirs();
-    }
-    // 生成唯一名称
-    String oldName = uploadFile.getOriginalFilename();
-    String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
-
-    try {
-      uploadFile.transferTo(new File(folder, newName));
-      String filePath = "http://file.dsiab.com/uploadFile/" + newName;
-      map.put("location", filePath);
-      return map;
-    } catch (IOException e){
-      e.printStackTrace();
-    }
-    map.put("location", "");
-    return map;
-  }
 
   /**
    * 删除

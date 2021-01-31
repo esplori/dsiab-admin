@@ -7,11 +7,15 @@ import com.spring.springboot.service.AccountService;
 import com.spring.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
@@ -48,7 +52,7 @@ public class AccountController {
   }
 
   @PostMapping("/updateUserInfo")
-  public ResponseMap getUserInfo(@RequestBody AccountDto accountDto, ServletRequest servletRequest) {
+  public ResponseMap updateUserInfo(@RequestBody AccountDto accountDto, ServletRequest servletRequest) {
     HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
     String authorization = httpServletRequest.getHeader("Authorization");
     accountDto.setUsername(JwtUtil.getUsername(authorization));
@@ -61,10 +65,48 @@ public class AccountController {
   }
 
   @GetMapping("/getUserInfo")
-  public ResponseMap updateUserInfo(ServletRequest servletRequest) {
+  public ResponseMap getUserInfo(ServletRequest servletRequest) {
     HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
     String authorization = httpServletRequest.getHeader("Authorization");
     AccountDto user = accountService.getUserByname(JwtUtil.getUsername(authorization));
+    user.setPassword("");
     return new ResponseMap(0, "查询成功", user);
+  }
+  /**
+   * 上传
+   *
+   * @param
+   * @return
+   */
+  @PostMapping("/upload")
+  public Map upload(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest req) {
+    // 获取文件名
+    // String fileName = uploadFile.getOriginalFilename();
+    Map map = new HashMap();
+//    String realPath = req.getSession().getServletContext().getRealPath("/uploadFile/");
+//    String realPath = "/www/wwwroot/file.dsiab.com/uploadFile";
+    AccountDto user = accountService.getUserByname("admin");
+    String realPath = user.getSourceRealUrl();
+    System.out.println("realPath == " + realPath);
+
+    // String format = sdf.format(new Date());
+    File folder = new File(realPath);
+    if (!folder.isDirectory()) {
+      folder.mkdirs();
+    }
+    // 生成唯一名称
+    String oldName = uploadFile.getOriginalFilename();
+    String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
+
+    try {
+      uploadFile.transferTo(new File(folder, newName));
+      String filePath = user.getSourceUrl() + newName;
+      map.put("location", filePath);
+      return map;
+    } catch (IOException e){
+      e.printStackTrace();
+    }
+    map.put("location", "");
+    return map;
   }
 }
