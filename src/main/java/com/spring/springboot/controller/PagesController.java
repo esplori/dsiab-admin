@@ -1,19 +1,13 @@
 package com.spring.springboot.controller;
 
 import com.spring.springboot.common.ResponseMap;
-import com.spring.springboot.dto.CateDto;
-import com.spring.springboot.dto.CommentsDto;
-import com.spring.springboot.dto.FileDto;
-import com.spring.springboot.dto.PagesDto;
+import com.spring.springboot.dto.*;
+import com.spring.springboot.service.AccountService;
 import com.spring.springboot.service.PagesSerice;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -25,6 +19,8 @@ public class PagesController {
   PagesSerice pagesSerice;
 
   SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+  @Autowired
+  private AccountService accountService;
 
   /**
    * 查询列表
@@ -85,7 +81,6 @@ public class PagesController {
    * @return
    */
   @GetMapping("/getDetail/{id}")
-//  public ResponseMap getOne(@RequestBody PagesDto pagesDtoParams) {
   public ResponseMap getOne(@PathVariable("id") String id) {
     // 浏览量加1
     PagesDto pagesDto  = pagesSerice.getDetail(Integer.parseInt(id));
@@ -232,14 +227,21 @@ public class PagesController {
    * 获取所有图片
    * @return
    */
-  @PostMapping("/getImageList")
+  @GetMapping("/getSourceList")
   public ResponseMap getImageList() {
-    File dir =new File("/data/wwwroot/default/uploadFile");//浏览F盘a文件夹下的所有内容
+    AccountDto user = accountService.getUserByname("admin");
+    String realPath = user.getSourceRealUrl();
+//    File dir =new File("/data/wwwroot/default/uploadFile");//浏览F盘a文件夹下的所有内容
+    File dir =new File(realPath);//浏览F盘a文件夹下的所有内容
 //    File dir =new File("/Users/xxn/Downloads/");//浏览F盘a文件夹下的所有内容
     File[] files=dir.listFiles();   //列出所有的子文件
+    ArrayList arrayList = new ArrayList();
     for(File file :files) {
       if(file.isFile()){
         //如果是文件，则输出文件名字
+        Map<String, Object> itemMap = new HashMap<>();
+        itemMap.put("'filename'", file.getName());
+        arrayList.add(itemMap);
         System.out.println("fileName===" + file.getName());
       }else if(file.isDirectory()) {
         //如果是文件夹，则输出文件夹的名字，并递归遍历该文件夹
@@ -247,7 +249,10 @@ public class PagesController {
 //        listFile(file,"|--"+spance);//递归遍历
       }
     }
-    return new ResponseMap(0, "更新成功", files);
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("result", arrayList);
+    resultMap.put("sourceUrl", user.getSourceUrl());
+    return new ResponseMap(0, "更新成功", resultMap);
   }
 
 
@@ -320,18 +325,13 @@ public class PagesController {
       return new ResponseMap(1, "提交失败", res);
     }
   }
-  
+
   @GetMapping("/getLatestComments")
   public ResponseMap getLatestComments() {
     Map<String, Object> resultMap = new HashMap<>();
     resultMap.put("result", pagesSerice.getLatestComments());
     return new ResponseMap(0, "查询成功", resultMap);
   }
-
-
-
-
-
 
 
   /**
