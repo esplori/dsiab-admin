@@ -240,7 +240,7 @@ public class PagesController {
       if(file.isFile()){
         //如果是文件，则输出文件名字
         Map<String, Object> itemMap = new HashMap<>();
-        itemMap.put("'filename'", file.getName());
+        itemMap.put("filename", file.getName());
         arrayList.add(itemMap);
         System.out.println("fileName===" + file.getName());
       }else if(file.isDirectory()) {
