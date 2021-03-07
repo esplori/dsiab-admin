@@ -51,7 +51,6 @@ public class PagesController {
    * @return
    */
   @PostMapping("/getRecomList")
-//  @Cacheable(value = "list",key = "#pagesDto.id")
   public ResponseMap getRecomList() {
     List<PagesDto> list = pagesSerice.getRecomList();
     return new ResponseMap(0, "查询成功", list);
