@@ -70,6 +70,15 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>taobao</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${basedir}/src/main/resources/lib/taobao-sdk-java-auto_1571046793882-20210304.jar</systemPath>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -77,6 +86,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--值为true是指打包时包含scope为system的第三方Jar包-->
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
     </build>
