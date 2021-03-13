@@ -115,11 +115,20 @@ public class tbkController {
     return new ResponseMap(0, "查询成功", resultMap);
   }
 
-  @GetMapping("/getList")
-  public ResponseMap getList()  {
+//  @GetMapping("/getList")
+//  public ResponseMap getList()  {
+//    Map resultMap= new HashMap();
+//    List<TbkDto> tbkDtos = tbkService.getList();
+//    resultMap.put("result", tbkDtos);
+//    resultMap.put("total", tbkService.getListTotal());
+//    return new ResponseMap(0, "查询成功", resultMap);
+//  }
+  @GetMapping("/getList/{page}")
+  public ResponseMap getListPage(@PathVariable("page") String page)  {
     Map resultMap= new HashMap();
-    List<TbkDto> tbkDtos = tbkService.getList();
+    List<TbkDto> tbkDtos = tbkService.getList(Integer.parseInt(page));
     resultMap.put("result", tbkDtos);
+    resultMap.put("total", tbkService.getListTotal());
     return new ResponseMap(0, "查询成功", resultMap);
   }
   /**

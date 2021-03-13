@@ -6,11 +6,14 @@
     <insert id="addTbkList">
         insert into tbk(id,title,pict_url,url,zk_final_price,reserve_price,volume) values (#{id},#{title},#{pict_url},#{url},#{zk_final_price},#{reserve_price},#{volume})
     </insert>
-    <select id="getList" resultMap="TbkDto">
-        select id,pict_url,url,title,volume,reserve_price,zk_final_price,createDate from tbk order by createDate
+    <select id="getList" resultMap="TbkDto" parameterType="Int">
+        select id,pict_url,url,title,volume,reserve_price,zk_final_price,createDate from tbk order by createDate limit #{page - 1}, 20
     </select>
     <select id="getDetail" parameterType="String" resultMap="TbkDto">
         select DISTINCT id,pict_url,url,title,volume,reserve_price,zk_final_price,createDate from tbk where id = #{id} limit 1
+    </select>
+    <select id="getListTotal" resultType="java.lang.Integer">
+        select count(*) from tbk
     </select>
 
 </mapper>

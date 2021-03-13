@@ -16,8 +16,11 @@ public class TbkService {
   public void addTbkList(TbkDto tbkDto) {
     tbkDao.addTbkList(tbkDto);
   }
-  public List<TbkDto> getList() {
-    return tbkDao.getList();
+  public List<TbkDto> getList(int page) {
+    return tbkDao.getList(page);
+  }
+  public int getListTotal() {
+    return tbkDao.getListTotal();
   }
   public TbkDto getDetail(String id){
     return tbkDao.getDetail(id);

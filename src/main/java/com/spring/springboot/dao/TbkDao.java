@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface TbkDao {
   public void addTbkList(TbkDto tbkDto);
-  public List<TbkDto> getList();
+  public List<TbkDto> getList(int page);
+  public int getListTotal();
   public TbkDto getDetail(String id);
 }
