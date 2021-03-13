@@ -4,13 +4,13 @@
     <resultMap id="TbkDto" type="com.spring.springboot.dto.TbkDto"/>
     <parameterMap id="TbkDto" type="com.spring.springboot.dto.TbkDto"/>
     <insert id="addTbkList">
-        insert into tbk(id,title,pict_url,zk_final_price,reserve_price,volume) values (#{id},#{title},#{pict_url},#{zk_final_price},#{reserve_price},#{volume})
+        insert into tbk(id,title,pict_url,url,zk_final_price,reserve_price,volume) values (#{id},#{title},#{pict_url},#{url},#{zk_final_price},#{reserve_price},#{volume})
     </insert>
     <select id="getList" resultMap="TbkDto">
-        select id,pict_url,title,volume,reserve_price,zk_final_price,createDate from tbk order by createDate
+        select id,pict_url,url,title,volume,reserve_price,zk_final_price,createDate from tbk order by createDate
     </select>
     <select id="getDetail" parameterType="String" resultMap="TbkDto">
-        select DISTINCT id,pict_url,title,volume,reserve_price,zk_final_price,createDate from tbk where id = #{id}
+        select DISTINCT id,pict_url,url,title,volume,reserve_price,zk_final_price,createDate from tbk where id = #{id} limit 1
     </select>
 
 </mapper>

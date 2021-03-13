@@ -4,6 +4,7 @@ public class TbkDto {
   private Long id;
   private String title;
   private String pict_url;
+  private String url;
   private String zk_final_price;
   private String reserve_price;
   private int volume;
@@ -31,6 +32,14 @@ public class TbkDto {
 
   public void setPict_url(String pict_url) {
     this.pict_url = pict_url;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   public String getZk_final_price() {

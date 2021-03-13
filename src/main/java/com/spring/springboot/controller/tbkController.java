@@ -99,9 +99,10 @@ public class tbkController {
 
       Map map1 = (Map) map_data.get(i);
       TbkDto tbkDto = new TbkDto();
-
+      System.out.println("map1="+map1);
       tbkDto.setId((Long) map1.get("item_id"));
       tbkDto.setPict_url((String) map1.get("pict_url"));
+      tbkDto.setUrl((String) map1.get("url"));
       tbkDto.setTitle((String) map1.get("title"));
       tbkDto.setVolume((int) map1.get("volume"));
       tbkDto.setReserve_price((String) map1.get("reserve_price"));
