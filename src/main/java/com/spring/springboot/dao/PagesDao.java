@@ -17,7 +17,7 @@ public interface PagesDao {
 
   public List<PagesDto> getRecomList();
 
-  public List<PagesDto> getAll(PagesDto pagesDto);
+  public List<PagesDto> getAll(int pageNo);
 
   public PagesDto getOne(@Param("id") int id);
 

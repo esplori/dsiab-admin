@@ -29,19 +29,29 @@ public class PagesController {
    */
   @PostMapping("/getList")
 //  @Cacheable(value = "resultMap",key = "#pagesDto.id")
-  public ResponseMap getList(@RequestBody PagesDto pagesDto) {
+  public ResponseMap getList(@PathVariable("page") String page) {
     Map<String, Object> resultMap = new HashMap<>();
     List<PagesDto> list = new ArrayList<>();
     int count = 0;
-    if (pagesDto.getCate() > 0) {
-      count = pagesSerice.getCount(pagesDto);
-      list = pagesSerice.getList(pagesDto);
-    } else {
+//    if (pagesDto.getCate() > 0) {
+//      count = pagesSerice.getCount(pagesDto);
+//      list = pagesSerice.getList(pagesDto);
+//    } else {
       count = pagesSerice.getAllCount();
-      list = pagesSerice.getAll(pagesDto);
-    }
+      list = pagesSerice.getAll(Integer.parseInt(page));
+//    }
     resultMap.put("total", count);
     resultMap.put("result", list);
+    return new ResponseMap(0, "查询成功", resultMap);
+  }
+  @GetMapping("/getList/{page}")
+  public ResponseMap getListPage(@PathVariable("page") String page)  {
+    Map resultMap= new HashMap();
+    System.out.println("page:" + page);
+    System.out.println("getall:" + pagesSerice.getAll(Integer.parseInt(page)).size());
+    System.out.println("gettotal:" + pagesSerice.getAllCount());
+    resultMap.put("result", pagesSerice.getAll(Integer.parseInt(page)));
+    resultMap.put("total", pagesSerice.getAllCount());
     return new ResponseMap(0, "查询成功", resultMap);
   }
 
@@ -62,17 +72,17 @@ public class PagesController {
    *
    * @return
    */
-  @PostMapping("/admin/getList")
-  @RequiresAuthentication
-  public ResponseMap adminGetList(@RequestBody PagesDto pagesDto) {
-    Map<String, Object> resultMap = new HashMap<>();
-    int count = pagesSerice.getAllCount();
-    System.out.println("count=" + count);
-    List<PagesDto> list = pagesSerice.getAll(pagesDto);
-    resultMap.put("total", count);
-    resultMap.put("result", list);
-    return new ResponseMap(0, "查询成功", resultMap);
-  }
+//  @PostMapping("/admin/getList")
+//  @RequiresAuthentication
+//  public ResponseMap adminGetList(@RequestBody PagesDto pagesDto) {
+//    Map<String, Object> resultMap = new HashMap<>();
+//    int count = pagesSerice.getAllCount();
+//    System.out.println("count=" + count);
+//    List<PagesDto> list = pagesSerice.getAll(pagesDto);
+//    resultMap.put("total", count);
+//    resultMap.put("result", list);
+//    return new ResponseMap(0, "查询成功", resultMap);
+//  }
 
   /**
    * 查询详情

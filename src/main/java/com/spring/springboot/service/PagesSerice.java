@@ -26,12 +26,12 @@ public class PagesSerice {
     return PagesDao.getRecomList();
   }
 
-  public List<PagesDto> getAll(PagesDto pagesDto) {
-    int page = pagesDto.getPage();
-    int pageSize = pagesDto.getPageSize();
-    page = (page - 1)*pageSize;
-    pagesDto.setPage(page);
-    return PagesDao.getAll(pagesDto);
+  public List<PagesDto> getAll(int pageNo) {
+//    int page = pagesDto.getPage();
+//    int pageSize = pagesDto.getPageSize();
+//    page = (page - 1)*pageSize;
+//    pagesDto.setPage(page);
+    return PagesDao.getAll(pageNo);
   }
 
   public PagesDto getOne(int  id) {
